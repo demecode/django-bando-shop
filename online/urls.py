@@ -21,8 +21,8 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cart/', include('cart.urls', namespace='cart')),  # before the shop.url as its more restrictive
     path('', include('shop.urls', namespace='shop')),
-    path('', RedirectView.as_view(url='account/', permanent=False)),
 ]
 
 if settings.DEBUG:
