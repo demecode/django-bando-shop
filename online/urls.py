@@ -22,6 +22,7 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),  # before the shop.url as its more restrictive
+    path('orders/', include('orders.urls', namespace='orders')), # before the shop.url as its more restrictive
     path('', include('shop.urls', namespace='shop')),
 ]
 
