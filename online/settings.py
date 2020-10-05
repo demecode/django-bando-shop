@@ -16,6 +16,7 @@ import choice
 import KEYS
 import braintree
 
+
 # Braintreeeeeee
 
 BRAINTREE_MERCHANT_ID = KEYS.BRAINTREE_MERCHANT_ID
@@ -143,10 +144,9 @@ CART_SESSION_ID = 'cart'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'gleamsgqt@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_password'
+EMAIL_HOST_USER = choice.gmail_user
+EMAIL_HOST_PASSWORD = choice.gmail_pword
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

@@ -12,7 +12,7 @@ h1, h2, h3, h4, h5 , h6 {
 
 a {
     text-decoration:none;
-    color:#5993bb;
+    color: #000000;
 }
 
 a:hover {
@@ -21,7 +21,7 @@ a:hover {
 
 a.button, input[type="submit"] {
     color:#fff;
-    background:#5993bb;
+    background: #000000;
     border-radius:4px;
     padding:10px 20px;
     font-size:14px;
@@ -124,7 +124,7 @@ ul.errorlist {
 
 #subheader {
     background:#ececec;
-    color:#444;
+    color: #444444;
     padding:15px 100px;
     overflow:auto;
 }
@@ -169,7 +169,7 @@ ul.errorlist {
 }
 
 #sidebar ul li.selected {
-    background:#5993bb;
+    background: #000000;
     border-radius:4px;
 }
 
