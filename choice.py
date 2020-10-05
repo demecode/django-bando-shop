@@ -1,1 +1,0 @@
-KEY = '0y&eqov&_&mx)s*%erpt!m_d3%d43(106n#wfswpd5@y^nw3oy'
