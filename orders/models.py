@@ -1,5 +1,9 @@
 from django.db import models
 from shop.models import Product
+from decimal import Decimal
+from django.core.validators import MinValueValidator, \
+    MaxValueValidator
+from coupons.models import Coupon
 
 
 class Order(models.Model):
@@ -13,6 +17,20 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
     braintree_id = models.CharField(max_length=150, blank=True)
+    coupon = models.ForeignKey(Coupon,
+                               related_name='orders',
+                               null=True,
+                               blank=True,
+                               on_delete=models.SET_NULL)
+    discount = models.IntegerField(default=0,
+                                   validators=[MinValueValidator(0),
+                                               MaxValueValidator(100)])
+
+    # These fields allow you to store an optional coupon for the order and the discount percentage applied with
+    # the coupon.
+    # The discount is stored in the related Coupon object, but you include it in the Order model to preserve it if the
+    # coupon is modified or deleted. You set on_delete to models.SET_NULL so that if the coupon gets deleted, the coupon
+    # field is set to Null, but the discount is preserved.
 
     class Meta:
         ordering = ('-created',)
@@ -21,7 +39,8 @@ class Order(models.Model):
         return f'Order {self.id}'
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        total_cost = sum(item.get_cost() for item in self.items.all())
+        return total_cost - total_cost * (self.discount / Decimal(100))
 
 
 # orderItem stores the price, quant and product of item
