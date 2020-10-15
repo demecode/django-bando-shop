@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 from cart.forms import CartAddProductForm
+from .recommender import Recommender
 
 
 # You can get this instance just through the ID, since it's a unique attribute. However, you include the slug in the
@@ -13,10 +14,13 @@ def product_detail(request, id, slug):
                                 translations__slug=slug,
                                 available=True)
     cart_product_form = CartAddProductForm()
+    r = Recommender()
+    recommended_products = r.suggest_products_for([product], 4)
     return render(request,
                   'shop/product/detail.html',
                   {'product': product,
-                   'cart_product_form': cart_product_form})
+                   'cart_product_form': cart_product_form,
+                   'recommended_products': recommended_products})
 
 
 def product_list(request, category_slug=None):
