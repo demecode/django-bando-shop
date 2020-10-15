@@ -6,4 +6,4 @@ from celery import Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'online.settings')
 app = Celery('online')
 app.config_from_object('django.conf.settings', namespace='CELERY')
-app.autodiscover_tasks() # look for tasks.py
+app.autodiscover_tasks()  # look for tasks.py
