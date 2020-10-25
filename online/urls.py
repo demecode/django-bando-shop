@@ -20,6 +20,9 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
+from vue_app import views as vue_views
+
+
 urlpatterns = i18n_patterns(
     path(_('admin/'), admin.site.urls),
     path(_('cart/'), include('cart.urls', namespace='cart')),  # before the shop.url as its more restrictive
@@ -27,6 +30,7 @@ urlpatterns = i18n_patterns(
     path(_('payment/'), include('payment.urls', namespace='payment')),
     path(_('coupons/'), include('coupons.urls', namespace='coupons')),
     path(_('rosetta/'), include('rosetta.urls')),
+    path('test', vue_views.test_vue),
     path('', include('shop.urls', namespace='shop')),
 )
 

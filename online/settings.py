@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rosetta',
     'parler',
     'localflavor',
+    'vue_app.apps.VueAppConfig',
 ]
 
 MIDDLEWARE = [

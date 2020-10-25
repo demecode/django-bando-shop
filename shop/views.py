@@ -1,7 +1,10 @@
+from random import random
+
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from .recommender import Recommender
+import json
 
 
 # You can get this instance just through the ID, since it's a unique attribute. However, you include the slug in the
@@ -38,3 +41,20 @@ def product_list(request, category_slug=None):
                   {'category': category,
                    'categories': categories,
                    'products': products})
+
+
+def index(request):
+    names = ("4hunnid", "dan", "jack", "lizzy", "susan")
+
+    items = []
+    for i in range(100):
+        items.append({
+            "name": random.choice(names),
+            "age": random.randint(20, 80),
+            "url": "https://example.com",
+        })
+
+    context = {}
+    context["items_json"] = items.dumps(items)
+
+    return render(request, 'shop/product/vue_list.html', context)
