@@ -18,6 +18,9 @@ import KEYS
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -27,7 +30,7 @@ SECRET_KEY = choice.KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -46,7 +49,7 @@ INSTALLED_APPS = [
     'rosetta',
     'parler',
     'localflavor',
-    'vue_app.apps.VueAppConfig',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -62,10 +65,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'online.urls'
 
+# os.path.join(BASE_DIR, 'templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [TEMPLATES_DIR]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -177,8 +182,19 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
 
-
 REDIS_HOST = 'localhost'
 REDIS_PORT = '6379'
 REDIS_DB = 1
 
+VUE_FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'webpack_bundles/', # must end with slash
+        'STATS_FILE': str(BASE_DIR.joinpath('frontend', 'webpack-stats.json')),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+    }
+}
